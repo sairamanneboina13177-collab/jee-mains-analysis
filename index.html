@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="JEE Main preparation and exam analysis dashboard with paper-wise insights, question tracking and performance analytics.">
+<title>JEE Mains Analysis</title>
+<style>
+:root{--bg:#0b1020;--panel:#121a2e;--panel2:#17223a;--line:#26334f;--text:#eef3ff;--muted:#a4b1ca;--blue:#75a7ff;--cyan:#63d5df;--green:#64d6a1;--amber:#ffc66d}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 75% -10%,#1c3560 0,transparent 35%),var(--bg);color:var(--text);font:15px/1.55 Inter,system-ui,Segoe UI,Arial,sans-serif}
+a{color:inherit}button,input,select{font:inherit}.wrap{max-width:1180px;margin:auto;padding:22px}
+header{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 0 24px}.brand{display:flex;align-items:center;gap:12px}.logo{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#4f8cff,#63d5df);display:grid;place-items:center;color:#061225;font-weight:900;font-size:20px}.brand h1{font-size:19px;margin:0}.brand p{margin:2px 0 0;color:var(--muted);font-size:12px}.toplink{color:var(--muted);text-decoration:none;font-size:13px}
+.hero{padding:26px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(115deg,#172746,#111a2e 65%);display:grid;grid-template-columns:1.5fr 1fr;gap:24px;align-items:center}.eyebrow{color:var(--cyan);font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}.hero h2{font-size:clamp(27px,4vw,42px);line-height:1.12;margin:10px 0}.hero p{color:var(--muted);max-width:620px;margin:0}.hero-side{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mini{background:#ffffff0a;border:1px solid #ffffff16;border-radius:14px;padding:15px}.mini b{display:block;font-size:22px}.mini span{font-size:12px;color:var(--muted)}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:28px 0 13px}.section-head h3{margin:0;font-size:18px}.section-head p{margin:3px 0 0;color:var(--muted);font-size:12px}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.card,.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:17px}.metric-label{color:var(--muted);font-size:12px}.metric{font-size:26px;font-weight:800;margin:5px 0}.metric-note{color:var(--green);font-size:11px}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}.toolbar input,.toolbar select,.field input,.field select,.field textarea{background:#0d1528;border:1px solid var(--line);color:var(--text);padding:10px 12px;border-radius:10px;outline:none}.toolbar input{flex:1;min-width:190px}.toolbar select{min-width:150px}
+.table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse;min-width:650px}.table th,.table td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--line);font-size:13px}.table th{color:var(--muted);font-weight:600}.tag{display:inline-block;border-radius:99px;padding:3px 8px;background:#213553;color:#a9caff;font-size:11px}.tag.easy{background:#143c35;color:#80e4ba}.tag.med{background:#40341e;color:#ffd18a}.tag.hard{background:#42242c;color:#ff9cac}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}.barrow{display:grid;grid-template-columns:105px 1fr 34px;align-items:center;gap:10px;margin:13px 0;font-size:12px;color:var(--muted)}.track{height:9px;background:#26334b;border-radius:99px;overflow:hidden}.fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#568eff,#63d5df)}
+button{border:0;border-radius:10px;padding:10px 14px;background:#6ea2ff;color:#071326;font-weight:750;cursor:pointer}button.ghost{background:#1b2943;color:var(--text);border:1px solid var(--line)}button:hover{filter:brightness(1.08)}
+.field{display:grid;gap:6px;margin:10px 0}.field label{font-size:12px;color:var(--muted)}.field input,.field select,.field textarea{width:100%}.formgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.notice{padding:12px 14px;border-radius:12px;background:#282719;border:1px solid #62552a;color:#f4d995;font-size:12px;margin-top:14px}
+footer{padding:28px 0 10px;color:var(--muted);font-size:12px;text-align:center}
+@media(max-width:800px){.hero{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.wrap{padding:14px}.cards{grid-template-columns:1fr 1fr}.hero{padding:20px}.hero-side{grid-template-columns:1fr 1fr}.section-head{align-items:start;flex-direction:column}}
+</style>
+</head>
+<body><div class="wrap">
+<header><div class="brand"><div class="logo">J</div><div><h1>JEE Mains Analysis</h1><p>Understand papers. Track progress. Improve smarter.</p></div></div><a class="toplink" href="#add">Add paper analysis ↓</a></header>
+<section class="hero"><div><div class="eyebrow">JEE MAIN • ANALYSIS HUB</div><h2>Your preparation,<br>made measurable.</h2><p>Explore shift-wise paper analysis, subject difficulty, question distribution and your own practice records in one place.</p></div><div class="hero-side"><div class="mini"><b id="paperCount">6</b><span>Paper records</span></div><div class="mini"><b>3</b><span>Subjects tracked</span></div><div class="mini"><b>2026</b><span>Demo dataset year</span></div><div class="mini"><b>24×7</b><span>Public access after hosting</span></div></div></section>
+
+<div class="section-head"><div><h3>Overview</h3><p>Summary of the currently loaded paper records</p></div></div>
+<section class="cards">
+<div class="card"><div class="metric-label">Papers listed</div><div class="metric" id="mPapers">6</div><div class="metric-note">Sample records</div></div>
+<div class="card"><div class="metric-label">Average difficulty</div><div class="metric" id="mDifficulty">Medium</div><div class="metric-note">Based on listed papers</div></div>
+<div class="card"><div class="metric-label">Most represented subject</div><div class="metric" id="mSubject">Physics</div><div class="metric-note">Demo topic distribution</div></div>
+<div class="card"><div class="metric-label">Your practice entries</div><div class="metric" id="mPractice">0</div><div class="metric-note">Saved on this device</div></div>
+</section>
+
+<div class="section-head"><div><h3>Paper-wise analysis</h3><p>Search and filter the sample records. Replace these with verified official paper data.</p></div></div>
+<div class="toolbar"><input id="search" placeholder="Search year, date, shift or topic…"><select id="year"><option value="">All years</option><option>2026</option><option>2025</option><option>2024</option></select><select id="subject"><option value="">All subjects</option><option>Physics</option><option>Chemistry</option><option>Mathematics</option></select><select id="difficulty"><option value="">All difficulty</option><option>Easy</option><option>Medium</option><option>Hard</option></select></div>
+<div class="panel table-wrap"><table class="table"><thead><tr><th>Year / date</th><th>Shift</th><th>Subject</th><th>Topic</th><th>Difficulty</th><th>Questions</th></tr></thead><tbody id="paperRows"></tbody></table></div>
+
+<div class="two" style="margin-top:15px"><section class="panel"><h3 style="margin:0 0 5px">Subject snapshot</h3><p style="color:var(--muted);font-size:12px;margin:0">Illustrative topic coverage in the demo records</p><div id="subjectBars"></div></section>
+<section class="panel"><h3 style="margin:0 0 5px">How to use this dashboard</h3><p style="color:var(--muted);font-size:13px">1. Filter papers by year and subject.<br>2. Add verified shift-wise analysis below.<br>3. Record practice attempts and review trends.<br>4. Publish this site so anyone can access it.</p><div class="notice">Demo data is illustrative, not an official NTA analysis or verified PYQ database.</div></section></div>
+
+<div class="section-head" id="add"><div><h3>Add a paper analysis</h3><p>Add your own verified paper/topic record to this browser's local dataset.</p></div></div>
+<section class="panel"><div class="formgrid">
+<div class="field"><label>Year</label><select id="newYear"><option>2026</option><option>2025</option><option>2024</option><option>2023</option></select></div>
+<div class="field"><label>Date</label><input id="newDate" type="date"></div>
+<div class="field"><label>Shift</label><input id="newShift" placeholder="e.g. Shift 1"></div>
+<div class="field"><label>Subject</label><select id="newSubject"><option>Physics</option><option>Chemistry</option><option>Mathematics</option></select></div>
+<div class="field"><label>Topic</label><input id="newTopic" placeholder="e.g. Current Electricity"></div>
+<div class="field"><label>Difficulty</label><select id="newDifficulty"><option>Easy</option><option selected>Medium</option><option>Hard</option></select></div>
+<div class="field"><label>Number of questions</label><input id="newQuestions" type="number" min="1" max="100" value="1"></div>
+</div><button id="addPaper">Save analysis record</button> <button class="ghost" id="export">Export records as CSV</button></section>
+
+<div class="section-head"><div><h3>Practice tracker</h3><p>Quickly record your own practice sessions on this device.</p></div></div>
+<section class="panel"><div class="formgrid">
+<div class="field"><label>Subject</label><select id="pSubject"><option>Physics</option><option>Chemistry</option><option>Mathematics</option></select></div>
+<div class="field"><label>Questions attempted</label><input id="attempted" type="number" min="0" value="30"></div>
+<div class="field"><label>Correct answers</label><input id="correct" type="number" min="0" value="24"></div>
+</div><button id="addPractice">Save practice session</button><span id="practiceMsg" style="color:var(--muted);font-size:12px;margin-left:10px"></span></section>
+<footer>JEE Mains Analysis • Independent student project • Not affiliated with NTA</footer>
+</div>
+<script>
+const demo=[
+{year:"2026",date:"2026-01-21",shift:"Shift 1",subject:"Physics",topic:"Current Electricity",difficulty:"Medium",questions:4},
+{year:"2026",date:"2026-01-22",shift:"Shift 2",subject:"Chemistry",topic:"Chemical Bonding",difficulty:"Medium",questions:5},
+{year:"2025",date:"2025-01-28",shift:"Shift 1",subject:"Mathematics",topic:"Coordinate Geometry",difficulty:"Hard",questions:6},
+{year:"2025",date:"2025-01-29",shift:"Shift 2",subject:"Physics",topic:"Modern Physics",difficulty:"Easy",questions:4},
+{year:"2024",date:"2024-01-27",shift:"Shift 1",subject:"Physics",topic:"Magnetism",difficulty:"Medium",questions:3},
+{year:"2024",date:"2024-01-30",shift:"Shift 1",subject:"Physics",topic:"Resistance",difficulty:"Easy",questions:2}
+];
+let records=JSON.parse(localStorage.getItem('jeeRecords')||'null')||demo;
+let practices=JSON.parse(localStorage.getItem('jeePractice')||'[]');
+const $=id=>document.getElementById(id);
+function render(){
+ const q=$('search').value.toLowerCase(),y=$('year').value,s=$('subject').value,d=$('difficulty').value;
+ const filtered=records.filter(r=>(!q||Object.values(r).join(' ').toLowerCase().includes(q))&&(!y||r.year===y)&&(!s||r.subject===s)&&(!d||r.difficulty===d));
+ $('paperRows').innerHTML=filtered.map(r=>`<tr><td>${r.year}<br><span style="color:#91a0bb">${r.date||''}</span></td><td>${r.shift}</td><td>${r.subject}</td><td>${r.topic}</td><td><span class="tag ${r.difficulty.toLowerCase()}">${r.difficulty}</span></td><td>${r.questions}</td></tr>`).join('')||'<tr><td colspan="6">No matching records. Try another filter.</td></tr>';
+ $('paperCount').textContent=records.length;$('mPapers').textContent=records.length;$('mPractice').textContent=practices.length;
+ const diff=records.length?records.filter(r=>r.difficulty==='Medium').length/records.length:0;
+ $('mDifficulty').textContent=diff>.6?'Medium':records.some(r=>r.difficulty==='Hard')?'Mixed':'Easy';
+ const counts=['Physics','Chemistry','Mathematics'].map(x=>[x,records.filter(r=>r.subject===x).reduce((a,b)=>a+Number(b.questions||0),0)]);
+ $('mSubject').textContent=counts.sort((a,b)=>b[1]-a[1])[0]?.[0]||'—';
+ const max=Math.max(1,...counts.map(x=>x[1]));
+ $('subjectBars').innerHTML=counts.map(([n,v])=>`<div class="barrow"><span>${n}</span><div class="track"><div class="fill" style="width:${v/max*100}%"></div></div><b>${v}</b></div>`).join('');
+}
+['search','year','subject','difficulty'].forEach(id=>$(id).addEventListener('input',render));
+$('addPaper').onclick=()=>{
+ const topic=$('newTopic').value.trim();if(!topic){alert('Enter a topic name.');return}
+ records.push({year:$('newYear').value,date:$('newDate').value,shift:$('newShift').value||'Not specified',subject:$('newSubject').value,topic,difficulty:$('newDifficulty').value,questions:Math.max(1,Number($('newQuestions').value)||1)});
+ localStorage.setItem('jeeRecords',JSON.stringify(records));$('newTopic').value='';render();
+};
+$('addPractice').onclick=()=>{
+ const a=Math.max(0,Number($('attempted').value)||0),c=Math.max(0,Number($('correct').value)||0);
+ if(c>a){alert('Correct answers cannot exceed attempted questions.');return}
+ practices.push({subject:$('pSubject').value,attempted:a,correct:c,date:new Date().toISOString().slice(0,10)});
+ localStorage.setItem('jeePractice',JSON.stringify(practices));$('practiceMsg').textContent='Saved!';render();
+};
+$('export').onclick=()=>{
+ const rows=[['Year','Date','Shift','Subject','Topic','Difficulty','Questions'],...records.map(r=>[r.year,r.date,r.shift,r.subject,r.topic,r.difficulty,r.questions])];
+ const csv=rows.map(row=>row.map(v=>'"'+String(v??'').replaceAll('"','""')+'"').join(',')).join('\n');
+ const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='jee-analysis-records.csv';a.click();URL.revokeObjectURL(a.href);
+};
+render();
+</script></body></html>
